@@ -1,18 +1,39 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import UserOutput from './UserOutput/UserOutput'
 import './App.css';
+import UserInput from './UserInput/UserInput';
 
 class App extends Component {
+  state = {
+    usernames: [
+      { username: "john" },
+      { username: "bill" }
+    ]
+  }
+
+  switchUsername = event => {
+    this.setState({
+      usernames: [
+        { username: event.target.value },
+        { username: "bill" }
+      ]
+    })
+  }
+
   render() {
+    const style = {
+      backgroundColor: 'white',
+      font: 'inherit',
+      border: '1px solid blue',
+      padding: '8px',
+      margin: '16px'
+    };
+
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <UserInput style={style} changed={this.switchUsername} username={this.state.usernames[0].username}/>
+        <UserOutput username={this.state.usernames[0].username}/>
+        <UserOutput username={this.state.usernames[1].username}/>
       </div>
     );
   }
